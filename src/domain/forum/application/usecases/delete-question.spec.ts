@@ -27,4 +27,20 @@ describe('Delete Question By Slug', () => {
 
     expect(inMemoryQuestionsRepository.items).toHaveLength(0)
   })
+
+  it('should not be able to delete a question from another user', async () => {
+    const newQuestion = makeQuestion(
+      { authorId: new UniqueEntityId('author-01') },
+      new UniqueEntityId('question-01'),
+    )
+
+    await inMemoryQuestionsRepository.create(newQuestion)
+
+    expect(() =>
+      sut.execute({
+        authorId: 'author-02',
+        questionId: newQuestion.id.toString(),
+      }),
+    ).rejects.toBeInstanceOf(Error)
+  })
 })
