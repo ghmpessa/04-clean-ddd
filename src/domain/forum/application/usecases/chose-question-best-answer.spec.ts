@@ -15,14 +15,14 @@ describe('Chose question best answer', () => {
     inMemoryAnswersRepository = new InMemoryAnswersRepository()
     sut = new ChoseQuestionBestAnswer(
       inMemoryQuestionsRepository,
-      inMemoryAnswersRepository
+      inMemoryAnswersRepository,
     )
   })
 
   it('should be able to chose question best answer', async () => {
     const question = makeQuestion()
     const answer = makeAnswer({
-      questionId: question.id
+      questionId: question.id,
     })
 
     await inMemoryQuestionsRepository.create(question)
@@ -38,18 +38,20 @@ describe('Chose question best answer', () => {
 
   it('should not be able to chose question best answer from another user', async () => {
     const question = makeQuestion({
-      authorId: new UniqueEntityId('author-01')
+      authorId: new UniqueEntityId('author-01'),
     })
     const answer = makeAnswer({
-      questionId: question.id
+      questionId: question.id,
     })
 
     await inMemoryQuestionsRepository.create(question)
     await inMemoryAnswersRepository.create(answer)
 
-    expect(() => sut.execute({
-      answerId: answer.id.toString(),
-      authorId: 'author-02',
-    })).rejects.toBeInstanceOf(Error)
+    expect(() =>
+      sut.execute({
+        answerId: answer.id.toString(),
+        authorId: 'author-02',
+      }),
+    ).rejects.toBeInstanceOf(Error)
   })
 })
