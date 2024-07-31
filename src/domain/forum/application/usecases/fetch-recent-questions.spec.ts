@@ -12,10 +12,18 @@ describe('Fetch Recent Questions', () => {
   })
 
   it('should be able to fetch recent questions', async () => {
-    await inMemoryQuestionsRepository.create(makeQuestion({ createdAt: new Date(2024, 0, 20) }))
-    await inMemoryQuestionsRepository.create(makeQuestion({ createdAt: new Date(2024, 0, 14) }))
-    await inMemoryQuestionsRepository.create(makeQuestion({ createdAt: new Date(2024, 0, 16) }))
-    await inMemoryQuestionsRepository.create(makeQuestion({ createdAt: new Date(2024, 0, 18) }))
+    await inMemoryQuestionsRepository.create(
+      makeQuestion({ createdAt: new Date(2024, 0, 20) }),
+    )
+    await inMemoryQuestionsRepository.create(
+      makeQuestion({ createdAt: new Date(2024, 0, 14) }),
+    )
+    await inMemoryQuestionsRepository.create(
+      makeQuestion({ createdAt: new Date(2024, 0, 16) }),
+    )
+    await inMemoryQuestionsRepository.create(
+      makeQuestion({ createdAt: new Date(2024, 0, 18) }),
+    )
 
     const { questions } = await sut.execute({ page: 1 })
 

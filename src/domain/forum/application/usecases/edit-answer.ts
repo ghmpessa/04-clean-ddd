@@ -17,7 +17,7 @@ export class EditAnswerUseCase {
   async execute({
     authorId,
     answerId,
-    content
+    content,
   }: EditAnswerUseCaseRequest): Promise<EditAnswerUseCaseResponse> {
     const answer = await this.answerRepository.findById(answerId)
 
@@ -34,7 +34,7 @@ export class EditAnswerUseCase {
     await this.answerRepository.save(answer)
 
     return {
-      answer
+      answer,
     }
   }
 }

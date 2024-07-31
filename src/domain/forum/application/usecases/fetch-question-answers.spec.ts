@@ -15,12 +15,23 @@ describe('Fetch question answers', () => {
   it('should be able to fetch question answers', async () => {
     const question = makeQuestion()
 
-    await inMemoryAnswersRepository.create(makeAnswer({ questionId: question.id }))
-    await inMemoryAnswersRepository.create(makeAnswer({ questionId: question.id }))
-    await inMemoryAnswersRepository.create(makeAnswer({ questionId: question.id }))
-    await inMemoryAnswersRepository.create(makeAnswer({ questionId: question.id }))
+    await inMemoryAnswersRepository.create(
+      makeAnswer({ questionId: question.id }),
+    )
+    await inMemoryAnswersRepository.create(
+      makeAnswer({ questionId: question.id }),
+    )
+    await inMemoryAnswersRepository.create(
+      makeAnswer({ questionId: question.id }),
+    )
+    await inMemoryAnswersRepository.create(
+      makeAnswer({ questionId: question.id }),
+    )
 
-    const { answers } = await sut.execute({ questionId: question.id.toString(), page: 1 })
+    const { answers } = await sut.execute({
+      questionId: question.id.toString(),
+      page: 1,
+    })
 
     expect(answers).toHaveLength(4)
   })
@@ -29,12 +40,17 @@ describe('Fetch question answers', () => {
     const question = makeQuestion()
 
     for (let index = 1; index <= 22; index++) {
-      await inMemoryAnswersRepository.create(makeAnswer({
-        questionId: question.id,
-      }))
+      await inMemoryAnswersRepository.create(
+        makeAnswer({
+          questionId: question.id,
+        }),
+      )
     }
 
-    const { answers } = await sut.execute({ questionId: question.id.toString(), page: 2 })
+    const { answers } = await sut.execute({
+      questionId: question.id.toString(),
+      page: 2,
+    })
 
     expect(answers).toHaveLength(2)
   })

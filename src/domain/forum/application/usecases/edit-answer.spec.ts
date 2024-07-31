@@ -23,11 +23,11 @@ describe('Edit Answer', () => {
     await sut.execute({
       answerId: newAnswer.id.toString(),
       authorId: 'author-01',
-      content: 'Answer content'
+      content: 'Answer content',
     })
 
     expect(inMemoryAnswersRepository.items[0]).toMatchObject({
-      content: 'Answer content'
+      content: 'Answer content',
     })
   })
 
@@ -43,7 +43,7 @@ describe('Edit Answer', () => {
       sut.execute({
         authorId: 'author-02',
         answerId: newAnswer.id.toString(),
-        content: 'Answer content'
+        content: 'Answer content',
       }),
     ).rejects.toBeInstanceOf(Error)
   })

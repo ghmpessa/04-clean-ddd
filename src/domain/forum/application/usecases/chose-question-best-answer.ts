@@ -1,5 +1,3 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Answer } from '../../enterprise/entities/answer'
 import { AnswersRepository } from '../repositories/answers-repository'
 import { QuestionsRepository } from '../repositories/questions-repository'
 import { Question } from '../../enterprise/entities/question'
@@ -16,20 +14,22 @@ interface ChoseQuestionBestAnswerResponse {
 export class ChoseQuestionBestAnswer {
   constructor(
     private questionsRepository: QuestionsRepository,
-    private answersRepository: AnswersRepository
+    private answersRepository: AnswersRepository,
   ) {}
 
   async execute({
     authorId,
-    answerId
+    answerId,
   }: ChoseQuestionBestAnswerRequest): Promise<ChoseQuestionBestAnswerResponse> {
     const answer = await this.answersRepository.findById(answerId)
 
     if (!answer) {
       throw new Error('Answer not found.')
     }
-    
-    const question = await this.questionsRepository.findById(answer.questionId.toString())
+
+    const question = await this.questionsRepository.findById(
+      answer.questionId.toString(),
+    )
 
     if (!question) {
       throw new Error('Question not found.')
@@ -44,7 +44,7 @@ export class ChoseQuestionBestAnswer {
     await this.questionsRepository.save(question)
 
     return {
-      question
+      question,
     }
   }
 }

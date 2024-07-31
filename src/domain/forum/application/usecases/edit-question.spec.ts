@@ -24,12 +24,12 @@ describe('Edit Question', () => {
       questionId: newQuestion.id.toString(),
       authorId: 'author-01',
       title: 'Question',
-      content: 'Question content'
+      content: 'Question content',
     })
 
     expect(inMemoryQuestionsRepository.items[0]).toMatchObject({
       title: 'Question',
-      content: 'Question content'
+      content: 'Question content',
     })
   })
 
@@ -46,7 +46,7 @@ describe('Edit Question', () => {
         authorId: 'author-02',
         questionId: newQuestion.id.toString(),
         title: 'Question',
-        content: 'Question content'
+        content: 'Question content',
       }),
     ).rejects.toBeInstanceOf(Error)
   })

@@ -19,7 +19,7 @@ export class EditQuestionUseCase {
     authorId,
     questionId,
     title,
-    content
+    content,
   }: EditQuestionUseCaseRequest): Promise<EditQuestionUseCaseResponse> {
     const question = await this.questionRepository.findById(questionId)
 
@@ -36,8 +36,8 @@ export class EditQuestionUseCase {
 
     await this.questionRepository.save(question)
 
-    return { 
-      question
+    return {
+      question,
     }
   }
 }
