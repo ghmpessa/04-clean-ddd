@@ -19,6 +19,10 @@ export class Question extends Entity<QuestionProps> {
     return this.props.authorId
   }
 
+  get bestAnswerId() {
+    return this.props.bestAnswerId
+  }
+
   get title() {
     return this.props.title
   }
