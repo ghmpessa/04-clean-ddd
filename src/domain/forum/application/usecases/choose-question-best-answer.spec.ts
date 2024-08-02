@@ -1,25 +1,25 @@
-import { ChoseQuestionBestAnswer } from './chose-question-best-answer'
 import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository'
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository'
 import { makeAnswer } from 'test/factories/make-answer'
 import { makeQuestion } from 'test/factories/make-question'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { ChooseQuestionBestAnswer } from './choose-question-best-answer'
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let inMemoryAnswersRepository: InMemoryAnswersRepository
-let sut: ChoseQuestionBestAnswer
+let sut: ChooseQuestionBestAnswer
 
-describe('Chose question best answer', () => {
+describe('Choose question best answer', () => {
   beforeEach(() => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
     inMemoryAnswersRepository = new InMemoryAnswersRepository()
-    sut = new ChoseQuestionBestAnswer(
+    sut = new ChooseQuestionBestAnswer(
       inMemoryQuestionsRepository,
       inMemoryAnswersRepository,
     )
   })
 
-  it('should be able to chose question best answer', async () => {
+  it('should be able to choose question best answer', async () => {
     const question = makeQuestion()
     const answer = makeAnswer({
       questionId: question.id,
@@ -36,7 +36,7 @@ describe('Chose question best answer', () => {
     expect(inMemoryQuestionsRepository.items[0].bestAnswerId).toEqual(answer.id)
   })
 
-  it('should not be able to chose question best answer from another user', async () => {
+  it('should not be able to choose question best answer from another user', async () => {
     const question = makeQuestion({
       authorId: new UniqueEntityId('author-01'),
     })
