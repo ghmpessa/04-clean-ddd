@@ -2,6 +2,7 @@ import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questio
 import { makeQuestion } from 'test/factories/make-question'
 import { EditQuestionUseCase } from './edit-question'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { NotAllowedError } from './errors/not-allowed-error'
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let sut: EditQuestionUseCase
@@ -41,13 +42,14 @@ describe('Edit Question', () => {
 
     await inMemoryQuestionsRepository.create(newQuestion)
 
-    expect(() =>
-      sut.execute({
-        authorId: 'author-02',
-        questionId: newQuestion.id.toString(),
-        title: 'Question',
-        content: 'Question content',
-      }),
-    ).rejects.toBeInstanceOf(Error)
+    const result = await sut.execute({
+      authorId: 'author-02',
+      questionId: newQuestion.id.toString(),
+      title: 'Question',
+      content: 'Question content',
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 })

@@ -28,12 +28,13 @@ describe('Fetch question answers', () => {
       makeAnswer({ questionId: question.id }),
     )
 
-    const { answers } = await sut.execute({
+    const result = await sut.execute({
       questionId: question.id.toString(),
       page: 1,
     })
 
-    expect(answers).toHaveLength(4)
+    expect(result.isRight()).toBe(true)
+    expect(result.value?.answers).toHaveLength(4)
   })
 
   it('should be able to fetch paginated question answers', async () => {
@@ -47,11 +48,12 @@ describe('Fetch question answers', () => {
       )
     }
 
-    const { answers } = await sut.execute({
+    const result = await sut.execute({
       questionId: question.id.toString(),
       page: 2,
     })
 
-    expect(answers).toHaveLength(2)
+    expect(result.isRight()).toBe(true)
+    expect(result.value?.answers).toHaveLength(2)
   })
 })
