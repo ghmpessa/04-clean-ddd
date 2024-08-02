@@ -15,7 +15,7 @@ interface CommentOnQuestionUseCaseResponse {
 
 export class CommentOnQuestionUseCase {
   constructor(
-    private questionRepository: QuestionsRepository,
+    private questionsRepository: QuestionsRepository,
     private questionCommentsRepository: QuestionCommentsRepository,
   ) {}
 
@@ -24,7 +24,7 @@ export class CommentOnQuestionUseCase {
     questionId,
     content,
   }: CommentOnQuestionUseCaseRequest): Promise<CommentOnQuestionUseCaseResponse> {
-    const question = await this.questionRepository.findById(questionId)
+    const question = await this.questionsRepository.findById(questionId)
 
     if (!question) {
       throw new Error('Question not found.')

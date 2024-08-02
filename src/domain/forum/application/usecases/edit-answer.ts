@@ -12,14 +12,14 @@ interface EditAnswerUseCaseResponse {
 }
 
 export class EditAnswerUseCase {
-  constructor(private answerRepository: AnswersRepository) {}
+  constructor(private answesrRepository: AnswersRepository) {}
 
   async execute({
     authorId,
     answerId,
     content,
   }: EditAnswerUseCaseRequest): Promise<EditAnswerUseCaseResponse> {
-    const answer = await this.answerRepository.findById(answerId)
+    const answer = await this.answesrRepository.findById(answerId)
 
     if (!answer) {
       throw new Error('Answer not found.')
@@ -31,7 +31,7 @@ export class EditAnswerUseCase {
 
     answer.content = content
 
-    await this.answerRepository.save(answer)
+    await this.answesrRepository.save(answer)
 
     return {
       answer,
