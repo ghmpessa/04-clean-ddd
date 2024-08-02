@@ -6,7 +6,8 @@
   "rules": {
     "no-useless-constructor": "off",
     "accessor-pairs": "off",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "@typescript-eslint/ban-types": "off"
   },
   "env": {
     "vitest-globals/env": true
