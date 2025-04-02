@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UniqueEntityId } from './unique-entity-id'
 
 export abstract class Entity<T> {
@@ -11,5 +12,17 @@ export abstract class Entity<T> {
   protected constructor(props: T, id?: UniqueEntityId) {
     this.props = props
     this._id = id ?? new UniqueEntityId()
+  }
+
+  public equals(entity: Entity<any>) {
+    if (entity === this) {
+      return true
+    }
+
+    if (entity.id === this._id) {
+      return true
+    }
+
+    return false
   }
 }
